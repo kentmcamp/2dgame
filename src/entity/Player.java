@@ -36,7 +36,7 @@ public class Player extends Entity {
   public void setDefaultValues() {
     worldX = gp.tileSize * 13;
     worldY = gp.tileSize * 27;
-    speed = 2;
+    speed = 3;
     direction = "down";
   }
 
@@ -82,7 +82,7 @@ public class Player extends Entity {
 
       // Check Tile Collision
       collisionOn = false;
-      gp.cCheker.checkTile(this);
+      gp.cChecker.checkTile(this);
 
       // If Collision false, player can move
       if (collisionOn == false) {
