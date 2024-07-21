@@ -18,7 +18,6 @@ public class Player extends Entity {
 
   int hasKey = 0;
 
-
   public Player(GamePanel gp, KeyHandler keyH) {
     this.gp = gp;
     this.keyH = keyH;
@@ -123,23 +122,32 @@ public class Player extends Entity {
     }
   }
 
+  private long lastSoundPlayTime = 0;
+
   public void pickUpObject(int i) {
     if (i != 999) {
       String objectName = gp.obj[i].name;
 
       switch (objectName) {
         case "Key":
-        gp.playSE(1);
-        hasKey++;
-        gp.obj[i] = null;
-        System.out.println("Keys: " + hasKey);
-        break;
+          gp.playSE(1, 0);
+          hasKey++;
+          gp.obj[i] = null;
+          System.out.println("Keys: " + hasKey);
+          break;
         case "Door":
-        if (hasKey > 0) {
-            gp.playSE(1);
+          if (hasKey > 0) {
+            gp.playSE(1, 0);
             gp.obj[i] = null;
             hasKey--;
             System.out.println("Keys: " + hasKey);
+          } else if (hasKey == 0) {
+            long currentTime = System.currentTimeMillis();
+
+            if (currentTime - lastSoundPlayTime > 1000) {
+              gp.playSE(3, -1);
+              lastSoundPlayTime = currentTime;
+            }
           }
           break;
       }

@@ -17,9 +17,7 @@ public class Main {
         window.setLocationRelativeTo(null);
         window.setVisible(true);
 
-        // Make the gamePanel focusable so it can listen for key events
         gamePanel.setFocusable(true);
-
         gamePanel.setupGame();
         gamePanel.startGameThread();
     }

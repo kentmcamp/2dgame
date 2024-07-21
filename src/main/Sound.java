@@ -5,6 +5,7 @@ import java.net.URL;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 
 public class Sound {
     Clip clip;
@@ -13,8 +14,8 @@ public class Sound {
     public Sound() {
         soundURL[0] = getClass().getResource("/res/sound/backgroundMusic01.wav");
         soundURL[1] = getClass().getResource("/res/sound/getKey.wav");
-        soundURL[2] = getClass().getResource("/res/sound/leftStep.wav");
-        soundURL[3] = getClass().getResource("/res/sound/rightStep.wav");
+        soundURL[2] = getClass().getResource("/res/sound/panicMusic01.wav");
+        soundURL[3] = getClass().getResource("/res/sound/lockedDoor.wav");
     }
 
     public void setFile(int i) {
@@ -41,4 +42,8 @@ public class Sound {
         clip.stop();
     }
 
+    public void setVolume(float volume) {
+            FloatControl setVolume = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+            setVolume.setValue(volume);
+    }
 }
