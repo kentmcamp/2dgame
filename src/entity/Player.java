@@ -16,7 +16,7 @@ public class Player extends Entity {
   public final int screenX;
   public final int screenY;
 
-  int hasKey = 0;
+  public int hasKey = 0;
 
   public Player(GamePanel gp, KeyHandler keyH) {
     this.gp = gp;
@@ -133,7 +133,7 @@ public class Player extends Entity {
           gp.playSE(1, 0);
           hasKey++;
           gp.obj[i] = null;
-          System.out.println("Keys: " + hasKey);
+          gp.ui.showMessage("Found key");
           break;
         case "Door":
           if (hasKey > 0) {
@@ -146,9 +146,15 @@ public class Player extends Entity {
 
             if (currentTime - lastSoundPlayTime > 1000) {
               gp.playSE(3, -1);
+              gp.ui.showMessage("Locked");
               lastSoundPlayTime = currentTime;
             }
           }
+          break;
+        case "Chest":
+          gp.ui.gameFinished = true;
+          gp.stopMusic();
+          gp.playSE(4, 6);
           break;
       }
     }

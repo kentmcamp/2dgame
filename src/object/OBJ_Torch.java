@@ -6,7 +6,7 @@ import javax.imageio.ImageIO;
 public class OBJ_Torch extends SuperObject {
 
   public OBJ_Torch() {
-    name = "Door";
+    name = "Torch";
     try {
       image =
         ImageIO.read(getClass().getResourceAsStream("/res/objects/torch.png"));
