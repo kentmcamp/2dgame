@@ -16,6 +16,9 @@ public class Player extends Entity {
   public final int screenX;
   public final int screenY;
 
+  int hasKey = 0;
+
+
   public Player(GamePanel gp, KeyHandler keyH) {
     this.gp = gp;
     this.keyH = keyH;
@@ -26,6 +29,8 @@ public class Player extends Entity {
     solidArea = new Rectangle();
     solidArea.x = 8;
     solidArea.y = 16;
+    solidAreaDefaultX = solidArea.x;
+    solidAreaDefaultY = solidArea.y;
     solidArea.width = 32;
     solidArea.height = 32;
 
@@ -84,6 +89,10 @@ public class Player extends Entity {
       collisionOn = false;
       gp.cChecker.checkTile(this);
 
+      // Check Object Collision
+      int objIndex = gp.cChecker.checkObject(this, true);
+      pickUpObject(objIndex);
+
       // If Collision false, player can move
       if (collisionOn == false) {
         switch (direction) {
@@ -114,6 +123,30 @@ public class Player extends Entity {
     }
   }
 
+  public void pickUpObject(int i) {
+    if (i != 999) {
+      String objectName = gp.obj[i].name;
+
+      switch (objectName) {
+        case "Key":
+        gp.playSE(1);
+        hasKey++;
+        gp.obj[i] = null;
+        System.out.println("Keys: " + hasKey);
+        break;
+        case "Door":
+        if (hasKey > 0) {
+            gp.playSE(1);
+            gp.obj[i] = null;
+            hasKey--;
+            System.out.println("Keys: " + hasKey);
+          }
+          break;
+      }
+    }
+  }
+
+  // *** Maybe I can put audio for footsteps here so they'll play as the image changes.
   public void draw(Graphics2D g2) {
     BufferedImage image = null;
 

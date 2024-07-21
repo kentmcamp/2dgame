@@ -10,6 +10,11 @@ import entity.Player;
 import object.SuperObject;
 import tile.TileManager;
 
+// For background image
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
 public class GamePanel extends JPanel implements Runnable {
 
     // SCREEN SETTINGS
@@ -25,16 +30,22 @@ public class GamePanel extends JPanel implements Runnable {
     // WORLD SETTINGS
     public final int maxWorldCol = 25;
     public final int maxWorldRow = 30;
-    public final int worldWidth = tileSize * maxWorldCol;
-    public final int worldHeight = tileSize * maxWorldRow;
+    // public final int worldWidth = tileSize * maxWorldCol; // 1200
+    // public final int worldHeight = tileSize * maxWorldRow; // 1440
+
+    // BACKGROUND IMAGE
+    private BufferedImage backgroundImage;
 
     int FPS = 60;
 
     TileManager tileM = new TileManager(this);
     KeyHandler keyH = new KeyHandler();
-    Thread gameThread;
+    Sound sound = new Sound();
     public CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
+    Thread gameThread;
+
+    //ENTITY AND OBJECT
     public Player player = new Player(this, keyH);
     public SuperObject obj[] = new SuperObject[10];
 
@@ -45,10 +56,20 @@ public class GamePanel extends JPanel implements Runnable {
         this.setDoubleBuffered(true);
         this.addKeyListener(keyH);
         this.setFocusable(true);
+        loadBackgroundImage();
+    }
+
+    public void loadBackgroundImage() {
+        try {
+            backgroundImage = ImageIO.read(getClass().getResourceAsStream("/res/images/backgroundImage.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void setupGame() {
         aSetter.setObject();
+        playMusic(0);
     }
     public void startGameThread() {
         gameThread = new Thread(this);
@@ -91,6 +112,12 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+
+        // Background Image
+        if (backgroundImage != null) {
+            g.drawImage(backgroundImage, 0, 0, this.screenWidth, this.screenHeight, null);
+        }
+
         Graphics2D g2 = (Graphics2D) g;
         // Tile
         tileM.draw(g2);
@@ -105,5 +132,19 @@ public class GamePanel extends JPanel implements Runnable {
         // Player
         player.draw(g2);
         g2.dispose();
+    }
+
+    // MUSIC AND SOUND EFFECT
+    public void playMusic(int i) {
+        sound.setFile(i);
+        sound.play();
+        sound.loop();
+    }
+    public void stopMusic() {
+        sound.stop();
+    }
+    public void playSE(int i) {
+        sound.setFile(i);
+        sound.play();
     }
 }
