@@ -20,6 +20,8 @@ public class UI {
   int messageCounter = 0;
   public boolean gameFinished = false;
 
+  double playTime;
+
   public UI(GamePanel gp) {
     this.gp = gp;
 
@@ -52,10 +54,14 @@ public class UI {
 
         text = "Congratulations!";
         textLength = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
-
         x = gp.screenWidth / 2 - textLength / 2;
         y = gp.screenHeight / 2 - (gp.tileSize*2);
+        g2.drawString(text, x, y);
 
+        text = "You finished in: " + String.format("%.2f", playTime) + " seconds";
+        textLength = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+        x = gp.screenWidth / 2 - textLength / 2;
+        y = gp.screenHeight / 2 + (gp.tileSize*3);
         g2.drawString(text, x, y);
 
         gp.gameThread = null;
@@ -66,6 +72,11 @@ public class UI {
       g2.drawImage(keyImage, gp.tileSize / 2, gp.tileSize / 2, gp.tileSize, gp.tileSize, null);
       g2.drawString("x " + gp.player.hasKey, 74, 60);
 
+      // Time
+      playTime += (double) 1/60;
+      g2.drawString("Time: " + String.format("%.2f", playTime), gp.tileSize*11, gp.tileSize/2);
+
+      // Draw message
       if (messageOn == true) {
         g2.setFont(g2.getFont().deriveFont(15F));
         g2.drawString(message, gp.tileSize / 2, gp.tileSize * 11);
