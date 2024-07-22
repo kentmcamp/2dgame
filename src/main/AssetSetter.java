@@ -2,6 +2,9 @@ package main;
 
 import object.OBJ_Chest;
 import object.OBJ_Door;
+import object.OBJ_FenceHorizontalLeft;
+import object.OBJ_FenceVerticleLeft;
+import object.OBJ_FenceVerticleRight;
 import object.OBJ_Key;
 import object.OBJ_Table1Left;
 import object.OBJ_Table1Right;
@@ -60,6 +63,38 @@ public class AssetSetter {
     gp.obj[10] = new OBJ_Table1Right();
     gp.obj[10].worldX = 13 * gp.tileSize;
     gp.obj[10].worldY = 21 * gp.tileSize;
+
+    // FENCE
+
+    gp.obj[11] = new OBJ_FenceHorizontalLeft();
+    gp.obj[11].worldX = 19 * gp.tileSize;
+    gp.obj[11].worldY = 20 * gp.tileSize;
+
+    gp.obj[12] = new OBJ_FenceHorizontalLeft();
+    gp.obj[12].worldX = 19 * gp.tileSize;
+    gp.obj[12].worldY = 21 * gp.tileSize;
+
+    gp.obj[13] = new OBJ_FenceVerticleLeft();
+    gp.obj[13].worldX = 19 * gp.tileSize;
+    gp.obj[13].worldY = 22 * gp.tileSize;
+
+    gp.obj[14] = new OBJ_FenceVerticleLeft();
+    gp.obj[14].worldX = 20 * gp.tileSize;
+    gp.obj[14].worldY = 22 * gp.tileSize;
+
+    gp.obj[15] = new OBJ_FenceVerticleRight();
+    gp.obj[15].worldX = 21 * gp.tileSize;
+    gp.obj[15].worldY = 22 * gp.tileSize;
+
+    gp.obj[16] = new OBJ_FenceVerticleRight();
+    gp.obj[16].worldX = 20 * gp.tileSize;
+    gp.obj[16].worldY = 20 * gp.tileSize;
+
+    gp.obj[17] = new OBJ_FenceVerticleRight();
+    gp.obj[17].worldX = 21 * gp.tileSize;
+    gp.obj[17].worldY = 20 * gp.tileSize;
+
+
 
   }
 }
