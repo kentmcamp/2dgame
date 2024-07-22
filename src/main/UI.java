@@ -33,7 +33,7 @@ public class UI {
       e.printStackTrace();
     }
 
-    OBJ_Key key = new OBJ_Key();
+    OBJ_Key key = new OBJ_Key(gp);
     keyImage = key.image;
   }
 
