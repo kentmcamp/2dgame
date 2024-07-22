@@ -46,18 +46,26 @@ public class Player extends Entity {
 
   public void getPlayerImage() {
     try {
+      up0 =
+        ImageIO.read(getClass().getResourceAsStream("/res/player/back-0.png"));
       up1 =
         ImageIO.read(getClass().getResourceAsStream("/res/player/back-1.png"));
       up2 =
         ImageIO.read(getClass().getResourceAsStream("/res/player/back-2.png"));
+      down0 =
+        ImageIO.read(getClass().getResourceAsStream("/res/player/front-0.png"));
       down1 =
         ImageIO.read(getClass().getResourceAsStream("/res/player/front-1.png"));
       down2 =
         ImageIO.read(getClass().getResourceAsStream("/res/player/front-2.png"));
+      left0 =
+        ImageIO.read(getClass().getResourceAsStream("/res/player/left-0.png"));
       left1 =
         ImageIO.read(getClass().getResourceAsStream("/res/player/left-1.png"));
       left2 =
         ImageIO.read(getClass().getResourceAsStream("/res/player/left-2.png"));
+      right0 =
+        ImageIO.read(getClass().getResourceAsStream("/res/player/right-0.png"));
       right1 =
         ImageIO.read(getClass().getResourceAsStream("/res/player/right-1.png"));
       right2 =
@@ -111,15 +119,20 @@ public class Player extends Entity {
       }
 
       spriteCounter++;
-      if (spriteCounter > 10) {
-        if (spriteNum == 1) {
-          spriteNum = 2;
-        } else if (spriteNum == 2) {
-          spriteNum = 1;
-        }
-        spriteCounter = 0;
-      }
+      if (spriteCounter <= 10) {
+        spriteNum = 1; // First step
+    } else if (spriteCounter <= 20) {
+        spriteNum = 0; // Transition to standing
+    } else if (spriteCounter <= 30) {
+        spriteNum = 2; // Second step
+    } else if (spriteCounter <= 40) {
+        spriteNum = 0; // Transition back to standing
+        spriteCounter = 0; // Reset the counter to loop the animation
     }
+} else {
+    spriteNum = 0; // Player is standing still
+    spriteCounter = 0; // Reset the counter when player stops moving
+}
   }
 
   private long lastSoundPlayTime = 0;
@@ -172,6 +185,9 @@ public class Player extends Entity {
         if (spriteNum == 2) {
           image = up2;
         }
+        if (spriteNum == 0) {
+          image = up0;
+        }
 
         break;
       case "down":
@@ -180,6 +196,9 @@ public class Player extends Entity {
         }
         if (spriteNum == 2) {
           image = down2;
+        }
+        if (spriteNum == 0) {
+          image = down0;
         }
 
         break;
@@ -190,6 +209,9 @@ public class Player extends Entity {
         if (spriteNum == 2) {
           image = left2;
         }
+        if (spriteNum == 0) {
+          image = left0;
+        }
 
         break;
       case "right":
@@ -198,6 +220,9 @@ public class Player extends Entity {
         }
         if (spriteNum == 2) {
           image = right2;
+        }
+        if (spriteNum == 0) {
+          image = right0;
         }
 
         break;

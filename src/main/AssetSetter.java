@@ -3,7 +3,10 @@ package main;
 import object.OBJ_Chest;
 import object.OBJ_Door;
 import object.OBJ_Key;
+import object.OBJ_Table1Left;
+import object.OBJ_Table1Right;
 import object.OBJ_Torch;
+import object.OBJ_WoodenBox;
 
 public class AssetSetter {
 
@@ -45,5 +48,18 @@ public class AssetSetter {
     gp.obj[7] = new OBJ_Torch();
     gp.obj[7].worldX = 10 * gp.tileSize;
     gp.obj[7].worldY = 19 * gp.tileSize;
+
+    gp.obj[8] = new OBJ_WoodenBox();
+    gp.obj[8].worldX = 7 * gp.tileSize;
+    gp.obj[8].worldY = 14 * gp.tileSize;
+
+    gp.obj[9] = new OBJ_Table1Left();
+    gp.obj[9].worldX = 12 * gp.tileSize;
+    gp.obj[9].worldY = 21 * gp.tileSize;
+
+    gp.obj[10] = new OBJ_Table1Right();
+    gp.obj[10].worldX = 13 * gp.tileSize;
+    gp.obj[10].worldY = 21 * gp.tileSize;
+
   }
 }
