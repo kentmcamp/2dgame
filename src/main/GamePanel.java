@@ -22,8 +22,8 @@ public class GamePanel extends JPanel implements Runnable {
     final int scale = 3;
 
     public final int tileSize = originalTileSize * scale; // 48x48
-    public final int maxScreenCol = 16;
-    public final int maxScreenRow = 12;
+    public final int maxScreenCol = 16; // 16 * 16 = 768
+    public final int maxScreenRow = 12; // 12 * 48 = 576
     public final int screenWidth = tileSize * maxScreenCol; // 768
     public final int screenHeight = tileSize * maxScreenRow; // 576
 
@@ -33,6 +33,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     // BACKGROUND IMAGE
     private BufferedImage backgroundImage;
+    private UtilityTool uTool = new UtilityTool();
 
     int FPS = 60;
 
@@ -64,6 +65,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void loadBackgroundImage() {
         try {
             backgroundImage = ImageIO.read(getClass().getResourceAsStream("/res/images/backgroundImage.png"));
+            backgroundImage = uTool.scaleImage(backgroundImage, screenWidth, screenHeight);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -117,7 +119,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         // Background Image
         if (backgroundImage != null) {
-            g.drawImage(backgroundImage, 0, 0, this.screenWidth, this.screenHeight, null);
+            g.drawImage(backgroundImage, 0, 0, null);
         }
 
         Graphics2D g2 = (Graphics2D) g;

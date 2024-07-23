@@ -33,6 +33,9 @@ public class TileManager {
             setup(3, "gb_tree", true);
             setup(4, "gb_water", true);
             setup(5, "gb_earth", false);
+            setup(6, "gb_water_wall_right", true);
+            setup(7, "gb_water_wall_left", true);
+            setup(8, "blank", true);
     }
 
     public void setup(int index, String imageName, boolean collision) {
