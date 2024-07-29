@@ -5,7 +5,6 @@ import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import object.OBJ_Key;
@@ -13,8 +12,9 @@ import object.OBJ_Key;
 public class UI {
 
   GamePanel gp;
+  Graphics2D g2;
   Font gameboyFont;
-  BufferedImage keyImage;
+
   public boolean messageOn = false;
   public String message = "";
   int messageCounter = 0;
@@ -33,8 +33,8 @@ public class UI {
       e.printStackTrace();
     }
 
-    OBJ_Key key = new OBJ_Key(gp);
-    keyImage = key.image;
+    // OBJ_Key key = new OBJ_Key(gp);
+    // keyImage = key.image;
   }
 
   public void showMessage(String text) {
@@ -43,51 +43,30 @@ public class UI {
   }
 
   public void draw(Graphics2D g2) {
-    if (gameFinished == true) {
-        g2.setFont(gameboyFont);
-        g2.setColor(Color.WHITE);
+    this.g2 = g2;
 
-        String text;
-        int textLength;
-        int x;
-        int y;
+    g2.setFont(gameboyFont);
+    g2.setColor(Color.WHITE);
 
-        text = "Congratulations!";
-        textLength = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
-        x = gp.screenWidth / 2 - textLength / 2;
-        y = gp.screenHeight / 2 - (gp.tileSize*2);
-        g2.drawString(text, x, y);
+    if (gp.gameState == gp.playState) {
 
-        text = "You finished in: " + String.format("%.2f", playTime) + " seconds";
-        textLength = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
-        x = gp.screenWidth / 2 - textLength / 2;
-        y = gp.screenHeight / 2 + (gp.tileSize*3);
-        g2.drawString(text, x, y);
-
-        gp.gameThread = null;
-
-    } else {
-      g2.setFont(gameboyFont);
-      g2.setColor(Color.WHITE);
-      g2.drawImage(keyImage, gp.tileSize / 2, gp.tileSize / 2, gp.tileSize, gp.tileSize, null);
-      g2.drawString("x " + gp.player.hasKey, 74, 60);
-
-      // Time
-      playTime += (double) 1/60;
-      g2.drawString("Time: " + String.format("%.2f", playTime), gp.tileSize*11, gp.tileSize/2);
-
-      // Draw message
-      if (messageOn == true) {
-        g2.setFont(g2.getFont().deriveFont(15F));
-        g2.drawString(message, gp.tileSize / 2, gp.tileSize * 11);
-
-        messageCounter++;
-
-        if (messageCounter > 150) {
-          messageCounter = 0;
-          messageOn = false;
-        }
-      }
     }
+    if (gp.gameState == gp.pauseState) {
+      drawPauseScreen();
+    }
+  }
+
+  public void drawPauseScreen() {
+    String text  = "PAUSED";
+    int x = getXforCenteredText(text);
+    int y = gp.screenHeight/2;
+    g2.drawString(text, x, y);
+  }
+
+  public int getXforCenteredText(String text) {
+    int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+    int x = gp.screenWidth/2 - length/2;
+    return x;
+
   }
 }

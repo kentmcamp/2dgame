@@ -27,9 +27,9 @@ public class GamePanel extends JPanel implements Runnable {
     public final int screenWidth = tileSize * maxScreenCol; // 768
     public final int screenHeight = tileSize * maxScreenRow; // 576
 
-    // WORLD SETTINGS
-    public final int maxWorldCol = 25;
-    public final int maxWorldRow = 30;
+    // Change this to change the amount of tiles in the world
+    public final int maxWorldCol = 28; // 27 * 16 = 432
+    public final int maxWorldRow = 50; // 50 * 16 = 800
 
     // BACKGROUND IMAGE
     private BufferedImage backgroundImage;
@@ -38,7 +38,7 @@ public class GamePanel extends JPanel implements Runnable {
     int FPS = 60;
 
     TileManager tileM = new TileManager(this);
-    KeyHandler keyH = new KeyHandler();
+    KeyHandler keyH = new KeyHandler(this);
 
     Sound music = new Sound();
     Sound soundEffect = new Sound();
@@ -48,9 +48,14 @@ public class GamePanel extends JPanel implements Runnable {
     public UI ui = new UI(this);
     Thread gameThread;
 
-    //ENTITY AND OBJECT
+    // ENTITY AND OBJECT
     public Player player = new Player(this, keyH);
     public SuperObject obj[] = new SuperObject[20];
+
+    // GAME STATE
+    public int gameState;
+    public final int playState = 1;
+    public final int pauseState = 2;
 
 
     public GamePanel() {
@@ -64,7 +69,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void loadBackgroundImage() {
         try {
-            backgroundImage = ImageIO.read(getClass().getResourceAsStream("/res/images/backgroundImage.png"));
+            backgroundImage = ImageIO.read(getClass().getResourceAsStream("/res/images/blankBackground.png"));
             backgroundImage = uTool.scaleImage(backgroundImage, screenWidth, screenHeight);
         } catch (IOException e) {
             e.printStackTrace();
@@ -73,7 +78,8 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void setupGame() {
         aSetter.setObject();
-        playMusic(0, -10);
+        playMusic(0, -2);
+        gameState = playState;
     }
     public void startGameThread() {
         gameThread = new Thread(this);
@@ -111,7 +117,14 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
-        player.update();
+        if (gameState == playState) {
+            music.play();
+            music.loop();
+            player.update();
+        }
+        if (gameState == pauseState) {
+            music.stop();
+        }
     }
 
     public void paintComponent(Graphics g) {
@@ -161,8 +174,8 @@ public class GamePanel extends JPanel implements Runnable {
     // MUSIC AND SOUND EFFECT
     public void playMusic(int songIndex, float volume) {
         music.setFile(songIndex);
-        music.play();
-        music.loop();
+        // music.play();
+        // music.loop();
         music.setVolume(volume);
     }
     public void stopMusic() {

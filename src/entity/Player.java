@@ -17,7 +17,7 @@ public class Player extends Entity {
   public final int screenX;
   public final int screenY;
 
-  public int hasKey = 0;
+  // public int hasKey = 0;
 
   public Player(GamePanel gp, KeyHandler keyH) {
     this.gp = gp;
@@ -39,8 +39,8 @@ public class Player extends Entity {
   }
 
   public void setDefaultValues() {
-    worldX = gp.tileSize * 13;
-    worldY = gp.tileSize * 27;
+    worldX = gp.tileSize * 20;
+    worldY = gp.tileSize * 46;
     speed = 3;
     direction = "down";
   }
@@ -137,37 +137,7 @@ public class Player extends Entity {
 
   public void pickUpObject(int i) {
     if (i != 999) {
-      String objectName = gp.obj[i].name;
 
-      switch (objectName) {
-        case "Key":
-          gp.playSE(1, 0);
-          hasKey++;
-          gp.obj[i] = null;
-          gp.ui.showMessage("Found key");
-          break;
-        case "Door":
-          if (hasKey > 0) {
-            gp.playSE(1, 0);
-            gp.obj[i] = null;
-            hasKey--;
-            System.out.println("Keys: " + hasKey);
-          } else if (hasKey == 0) {
-            long currentTime = System.currentTimeMillis();
-
-            if (currentTime - lastSoundPlayTime > 1000) {
-              gp.playSE(3, -1);
-              gp.ui.showMessage("Locked");
-              lastSoundPlayTime = currentTime;
-            }
-          }
-          break;
-        case "Chest":
-          gp.ui.gameFinished = true;
-          gp.stopMusic();
-          gp.playSE(4, 6);
-          break;
-      }
     }
   }
 

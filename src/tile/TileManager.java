@@ -20,23 +20,54 @@ public class TileManager {
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
-        tile = new Tile[10];
+        tile = new Tile[25];
         mapTileNumber = new int[gp.maxWorldCol][gp.maxWorldRow]; // 16x12
         getTileImage();
-        loadMap("/res/maps/world2.txt");
+        // loadMap("/res/maps/world2.txt");
+        loadMap("/res/maps/level01.txt");
     }
 
     public void getTileImage() {
-            setup(0, "gb_grass", false);
-            setup(1, "gb_stone", false);
-            setup(2, "gb_wall", true);
-            setup(3, "gb_tree", true);
-            setup(4, "gb_water", true);
-            setup(5, "gb_earth", false);
-            setup(6, "gb_water_wall_right", true);
-            setup(7, "gb_water_wall_left", true);
-            setup(8, "blank", true);
+            setup(0, "blank", false);
+            setup(1, "blank", false);
+            setup(2, "blank", false);
+            setup(3, "blank", false);
+            setup(4, "blank", false);
+            setup(5, "blank", false);
+            setup(6, "blank", false);
+            setup(7, "blank", false);
+            setup(8, "blank", false);
+            setup(9, "blank", false);
+        //  =========================
+            setup(10, "blank", false);
+            setup(11, "gb_grass", false);
+            setup(12, "gb_earth", false);
+            setup(13, "gb_stone", false);
+            setup(14, "gb_tree", true);
+            setup(15, "tombstone1", true);
+            setup(16, "tombstone2", true);
+            setup(17, "gb_water", true);
+            setup(18, "gb_water_wall_right", true);
+            setup(19, "gb_water_wall_left", true);
+            setup(20, "gb_wall", true);
+            setup(21, "dark_wall", true);
+            setup(22, "gb_water_wall_drain", true);
+            setup(23, "gb_water_wall_rightcorner", true);
+            setup(24, "gb_water_wall_leftcorner", true);
     }
+    // public void getTileImage() {
+    //         setup(0, "gb_grass", false);
+    //         setup(1, "gb_stone", false);
+    //         setup(2, "gb_wall", true);
+    //         setup(3, "gb_tree", true);
+    //         setup(4, "gb_water", true);
+    //         setup(5, "gb_earth", false);
+    //         setup(6, "gb_water_wall_right", true);
+    //         setup(7, "gb_water_wall_left", true);
+    //         setup(8, "blank", true);
+    //         setup(9, "tombstone1", true);
+    //         setup(10, "tombstone2", true);
+    // }
 
     public void setup(int index, String imageName, boolean collision) {
         UtilityTool uTool = new UtilityTool();
