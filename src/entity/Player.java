@@ -134,8 +134,12 @@ public class Player extends Entity {
 
   public void interactNPC(int i) {
     if (i != 999) {
-      System.out.println("Collided with NPC");
+      if (gp.keyH.spacePressed == true) {
+        gp.gameState = gp.dialogueState;
+        gp.npc[i].speak();
+      }
     }
+    gp.keyH.spacePressed = false;
   }
 
 

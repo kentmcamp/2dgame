@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
@@ -19,8 +20,7 @@ public class UI {
   public String message = "";
   int messageCounter = 0;
   public boolean gameFinished = false;
-
-  double playTime;
+  public String currentDialogue = "";
 
   public UI(GamePanel gp) {
     this.gp = gp;
@@ -32,9 +32,6 @@ public class UI {
     } catch (FontFormatException | IOException e) {
       e.printStackTrace();
     }
-
-    // OBJ_Key key = new OBJ_Key(gp);
-    // keyImage = key.image;
   }
 
   public void showMessage(String text) {
@@ -48,19 +45,60 @@ public class UI {
     g2.setFont(gameboyFont);
     g2.setColor(Color.WHITE);
 
+    // Play State
     if (gp.gameState == gp.playState) {
 
     }
+    // Pause State
     if (gp.gameState == gp.pauseState) {
       drawPauseScreen();
+    }
+    // Dialogue State
+    if (gp.gameState == gp.dialogueState) {
+      drawDialogueScreen();
     }
   }
 
   public void drawPauseScreen() {
     String text  = "PAUSED";
     int x = getXforCenteredText(text);
-    int y = gp.screenHeight/2;
+    int y = gp.screenHeight/3;
+    Color lightGreenLight = new Color(207, 241, 206, 255);
+    g2.setColor(lightGreenLight);
     g2.drawString(text, x, y);
+  }
+
+  public void drawDialogueScreen() {
+    // Window
+    int width = gp.screenWidth - (gp.tileSize * 2);
+    int height = gp.tileSize * 4;
+    int x = (gp.screenWidth - width) / 2;
+    int y = gp.tileSize * 7;
+
+    drawSubWindow(x, y, width, height);
+
+
+    x += gp.tileSize;
+    y += gp.tileSize;
+    for (String line : currentDialogue.split("\n")) {
+      g2.drawString(line, x, y);
+      y += 40;
+    }
+
+}
+
+
+
+  public void drawSubWindow(int x, int y, int width, int height) {
+    Color darkBlueShade = new Color(7, 19, 29, 255);
+    g2.setColor(darkBlueShade);
+    g2.fillRoundRect(x, y, width, height, 0, 0);
+
+    Color lightGreenLight = new Color(207, 241, 206, 255);
+    g2.setColor(lightGreenLight);
+    g2.setStroke(new BasicStroke(5));
+    g2.drawRoundRect(x+4, y+4, width-10, height-10, 1, 1);
+
   }
 
   public int getXforCenteredText(String text) {

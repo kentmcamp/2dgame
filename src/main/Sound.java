@@ -18,6 +18,7 @@ public class Sound {
         soundURL[3] = getClass().getResource("/res/sound/lockedDoor.wav");
         soundURL[4] = getClass().getResource("/res/sound/gameoverMusic.wav");
         soundURL[5] = getClass().getResource("/res/sound/backgroundMusic02.wav");
+        soundURL[6] = getClass().getResource("/res/sound/backgroundMusic03.wav");
     }
 
     public void setFile(int i) {

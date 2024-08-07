@@ -32,6 +32,9 @@ public class GamePanel extends JPanel implements Runnable {
     public final int maxWorldCol = 28; // 27 * 16 = 432
     public final int maxWorldRow = 50; // 50 * 16 = 800
 
+    // Screen Width in Pixels = 256
+    // Screen Height in Pixels = 192
+
     // BACKGROUND IMAGE
     private BufferedImage backgroundImage;
     private UtilityTool uTool = new UtilityTool();
@@ -39,7 +42,7 @@ public class GamePanel extends JPanel implements Runnable {
     int FPS = 60;
 
     TileManager tileM = new TileManager(this);
-    KeyHandler keyH = new KeyHandler(this);
+    public KeyHandler keyH = new KeyHandler(this);
 
     Sound music = new Sound();
     Sound soundEffect = new Sound();
@@ -54,10 +57,11 @@ public class GamePanel extends JPanel implements Runnable {
     public SuperObject obj[] = new SuperObject[20];
     public Entity npc[] = new Entity[10];
 
-    // GAME STATE
+    // GAME STATES
     public int gameState;
     public final int playState = 1;
     public final int pauseState = 2;
+    public final int dialogueState = 3;
 
 
     public GamePanel() {
@@ -71,7 +75,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void loadBackgroundImage() {
         try {
-            backgroundImage = ImageIO.read(getClass().getResourceAsStream("/res/images/blankBackground.png"));
+            backgroundImage = ImageIO.read(getClass().getResourceAsStream("/res/images/backgroundGrid.png"));
             backgroundImage = uTool.scaleImage(backgroundImage, screenWidth, screenHeight);
         } catch (IOException e) {
             e.printStackTrace();
@@ -81,7 +85,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void setupGame() {
         aSetter.setObject();
         aSetter.setNPC();
-        playMusic(0, -2);
+        playMusic(6, 2);
         gameState = playState;
     }
     public void startGameThread() {

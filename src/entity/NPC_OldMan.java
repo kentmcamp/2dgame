@@ -12,6 +12,7 @@ public class NPC_OldMan extends Entity {
     speed = 1;
 
     getImage();
+    setDialogue();
   }
 
   public void getImage() {
@@ -27,6 +28,13 @@ public class NPC_OldMan extends Entity {
     right0 = setup("oldman/right00");
     right1 = setup("oldman/right01");
     right2 = setup("oldman/right02");
+  }
+
+  public void setDialogue() {
+    dialogues[0] = "ugh...nnngh...argghh...ooo...";
+    dialogues[1] = "grrRRrr...aaAAAgh....Rroooaah!";
+    dialogues[2] = "Gyaaaaiiiii! AAAAAAAAGH!!!";
+    dialogues[3] = "HREEEEEAAANGH!!!\nAAAAAAAAAAAAAGGGGGHHHHH!!!!!";
   }
 
   public void setAction() {
@@ -51,14 +59,9 @@ public class NPC_OldMan extends Entity {
         }
         actionLockCounter = 0;
     }
+  }
 
-
-
+  public void speak() {
+    super.speak();
   }
 }
-
-
-/*
-OldMan dialogue:
-"ugh...nnngh...argghh...ooo...grrRRrr...aaAAAgh....Rroooaaah! Gyaaaaiiiii! AAAAAAAAGH!!! HREEEEEAAANGH!!! AAAAAAAAAAAAAH!!!!!"
-*/
