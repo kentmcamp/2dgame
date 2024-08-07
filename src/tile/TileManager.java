@@ -20,7 +20,7 @@ public class TileManager {
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
-        tile = new Tile[25];
+        tile = new Tile[30];
         mapTileNumber = new int[gp.maxWorldCol][gp.maxWorldRow]; // 16x12
         getTileImage();
         // loadMap("/res/maps/world2.txt");
@@ -54,6 +54,10 @@ public class TileManager {
             setup(22, "gb_water_wall_drain", true);
             setup(23, "gb_water_wall_rightcorner", true);
             setup(24, "gb_water_wall_leftcorner", true);
+            setup(25, "gb_water_railing", true);
+            setup(26, "gb_water_railingleft", true);
+            setup(27, "gb_water_railingright", true);
+            setup(28, "gb_wall_shade", true);
     }
     // public void getTileImage() {
     //         setup(0, "gb_grass", false);

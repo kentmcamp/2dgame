@@ -11,16 +11,16 @@ import main.UtilityTool;
 
 public class Player extends Entity {
 
-  GamePanel gp;
+
   KeyHandler keyH;
 
   public final int screenX;
   public final int screenY;
 
-  // public int hasKey = 0;
-
   public Player(GamePanel gp, KeyHandler keyH) {
-    this.gp = gp;
+
+    super(gp);
+
     this.keyH = keyH;
 
     screenX = gp.screenWidth / 2 - (gp.tileSize / 2);
@@ -46,31 +46,18 @@ public class Player extends Entity {
   }
 
   public void getPlayerImage() {
-    up0 = setup("back-0");
-    up1 = setup("back-1");
-    up2 = setup("back-2");
-    down0 = setup("front-0");
-    down1 = setup("front-1");
-    down2 = setup("front-2");
-    left0 = setup("left-0");
-    left1 = setup("left-1");
-    left2 = setup("left-2");
-    right0 = setup("right-0");
-    right1 = setup("right-1");
-    right2 = setup("right-2");
-  }
-
-  public BufferedImage setup(String imageName) {
-    UtilityTool uTool = new UtilityTool();
-    BufferedImage image = null;
-
-    try {
-      image = ImageIO.read(getClass().getResourceAsStream("/res/player/" + imageName + ".png"));
-      image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-    return image;
+    up0 = setup("/player/back-0");
+    up1 = setup("/player/back-1");
+    up2 = setup("/player/back-2");
+    down0 = setup("/player/front-0");
+    down1 = setup("/player/front-1");
+    down2 = setup("/player/front-2");
+    left0 = setup("/player/left-0");
+    left1 = setup("/player/left-1");
+    left2 = setup("/player/left-2");
+    right0 = setup("/player/right-0");
+    right1 = setup("/player/right-1");
+    right2 = setup("/player/right-2");
   }
 
   public void update() {
@@ -97,6 +84,10 @@ public class Player extends Entity {
       // Check Object Collision
       int objIndex = gp.cChecker.checkObject(this, true);
       pickUpObject(objIndex);
+
+      // Check NPC Collision
+      int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
+      interactNPC(npcIndex);
 
       // If Collision false, player can move
       if (collisionOn == false) {
@@ -140,6 +131,13 @@ public class Player extends Entity {
 
     }
   }
+
+  public void interactNPC(int i) {
+    if (i != 999) {
+      System.out.println("Collided with NPC");
+    }
+  }
+
 
   // *** Maybe I can put audio for footsteps here so they'll play as the image changes.
   public void draw(Graphics2D g2) {
