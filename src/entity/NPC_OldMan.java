@@ -15,18 +15,18 @@ public class NPC_OldMan extends Entity {
   }
 
   public void getImage() {
-    up0 = setup("/oldman/back00");
-    up1 = setup("/oldman/back01");
-    up2 = setup("/oldman/back02");
-    down0 = setup("/oldman/front00");
-    down1 = setup("/oldman/front01");
-    down2 = setup("/oldman/front02");
-    left0 = setup("/oldman/left00");
-    left1 = setup("/oldman/left01");
-    left2 = setup("/oldman/left02");
-    right0 = setup("/oldman/right00");
-    right1 = setup("/oldman/right01");
-    right2 = setup("/oldman/right02");
+    up0 = setup("oldman/back00");
+    up1 = setup("oldman/back01");
+    up2 = setup("oldman/back02");
+    down0 = setup("oldman/front00");
+    down1 = setup("oldman/front01");
+    down2 = setup("oldman/front02");
+    left0 = setup("oldman/left00");
+    left1 = setup("oldman/left01");
+    left2 = setup("oldman/left02");
+    right0 = setup("oldman/right00");
+    right1 = setup("oldman/right01");
+    right2 = setup("oldman/right02");
   }
 
   public void setAction() {
@@ -56,3 +56,9 @@ public class NPC_OldMan extends Entity {
 
   }
 }
+
+
+/*
+OldMan dialogue:
+"ugh...nnngh...argghh...ooo...grrRRrr...aaAAAgh....Rroooaaah! Gyaaaaiiiii! AAAAAAAAGH!!! HREEEEEAAANGH!!! AAAAAAAAAAAAAH!!!!!"
+*/

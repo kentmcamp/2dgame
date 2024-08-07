@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.InputStream;
 import javax.imageio.ImageIO;
 import main.GamePanel;
 import main.UtilityTool;
@@ -141,15 +142,23 @@ public class Entity {
     UtilityTool uTool = new UtilityTool();
     BufferedImage image = null;
 
-    try {
-      image =
-        ImageIO.read(
-          getClass().getResourceAsStream("/res/" + imagePath + ".png")
-        );
-      image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
+    String path = "/res/" + imagePath + ".png";
+    try (InputStream is = getClass().getResourceAsStream(path)) {
+        if (is != null) {
+            System.out.println("Loading image from: " + path);
+            image = ImageIO.read(is);
+            image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
+        } else {
+            System.out.println("Resource not found at: " + path);
+        }
     } catch (IOException e) {
-      e.printStackTrace();
+        e.printStackTrace();
     }
+
+    if (image == null) {
+        throw new IllegalArgumentException("Image not found: " + imagePath);
+    }
+
     return image;
-  }
+}
 }

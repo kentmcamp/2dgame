@@ -46,19 +46,19 @@ public class Player extends Entity {
   }
 
   public void getPlayerImage() {
-    up0 = setup("/player/back-0");
-    up1 = setup("/player/back-1");
-    up2 = setup("/player/back-2");
-    down0 = setup("/player/front-0");
-    down1 = setup("/player/front-1");
-    down2 = setup("/player/front-2");
-    left0 = setup("/player/left-0");
-    left1 = setup("/player/left-1");
-    left2 = setup("/player/left-2");
-    right0 = setup("/player/right-0");
-    right1 = setup("/player/right-1");
-    right2 = setup("/player/right-2");
-  }
+    up0 = setup("player/back-0");
+    up1 = setup("player/back-1");
+    up2 = setup("player/back-2");
+    down0 = setup("player/front-0");
+    down1 = setup("player/front-1");
+    down2 = setup("player/front-2");
+    left0 = setup("player/left-0");
+    left1 = setup("player/left-1");
+    left2 = setup("player/left-2");
+    right0 = setup("player/right-0");
+    right1 = setup("player/right-1");
+    right2 = setup("player/right-2");
+}
 
   public void update() {
     if (
